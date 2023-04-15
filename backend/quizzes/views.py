@@ -245,7 +245,7 @@ class GetQuizzesByCreatorWithCourse(APIView):
 
 
 """
-amswers: [
+answers: [
     {
         "question_id":6,
         "answer_choice_id":6
@@ -272,7 +272,7 @@ class QuizDetailAPIView(RetrieveAPIView):
         if self.request.user.role == "STUDENT":
             student_id = StudentProfile.objects.filter(user=self.request.user.id).first()
             quiz_solution = QuizSolution.objects.filter(quiz=quiz, student=student_id).first()
-            print(vars(quiz_solution))
+            # print(vars(quiz_solution))
             data = QuizSolutionDetailSerializer(quiz_solution).data if hasattr(quiz_solution, 'id') else {"detail":"not found"}
         if self.request.user.role == "STAFF":
             teacher_id = TeacherProfile.objects.filter(user=self.request.user.id).first()

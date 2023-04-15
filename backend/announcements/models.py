@@ -26,3 +26,4 @@ class Lesson(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     link1 = models.URLField(max_length=100, null=True, blank=True)
     link2 = models.URLField(max_length=100, null=True, blank=True)
+    video = models.FileField(null=True, blank=True)

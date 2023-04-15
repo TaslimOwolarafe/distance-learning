@@ -3,6 +3,7 @@ from django.db import models
 from teachers.models import TeacherProfile
 from students.models import StudentProfile
 from classes.models import Course
+from django.conf import settings
 
 # Create your models here.
 
@@ -22,7 +23,7 @@ class Solution(models.Model):
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
     student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
     body = models.TextField(max_length=2000, blank=True, null=True)
-    attachment = models.FileField(upload_to="solutions/",max_length=20000, null=True,blank=True)
+    attachment = models.FileField(upload_to="solutions/", null=True,blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_submitted = models.DateTimeField(null=True, blank=True)
     completed = models.BooleanField(default=False)

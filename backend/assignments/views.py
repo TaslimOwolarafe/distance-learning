@@ -118,13 +118,18 @@ class SolutionListCreateView(ListCreateAPIView):
 class AssignmentWithSolutionsAPIView(RetrieveDestroyAPIView):
     queryset = Assignment.objects.all()
     serializer_class = AssignmentPonSolutionsSerializer
-    permission_classes = [IsStaffAssignmentOwnerOrCoStaff]
+    # permission_classes = [IsStaffAssignmentOwnerOrCoStaff]
 
     def get_queryset(self):
         if self.request.user.role == "STAFF":
             teacher_id = TeacherProfile.objects.filter(user=self.request.user.id).first()
             return self.queryset.filter(given_by=teacher_id)
         return self.queryset.all()
+    
+    def get(self, request, *args, **kwargs):
+        if self.request.user.role == 'ADMIN':
+            return Response(self.serializer_class(self.get_object()).data, status=status.HTTP_200_OK)
+        return super().get(request, *args, **kwargs)
 
 class ASLAPI(ListAPIView):
     queryset = Assignment.objects.all()
