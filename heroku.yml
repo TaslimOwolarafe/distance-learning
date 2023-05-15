@@ -1,6 +1,6 @@
 build:
   docker:
-    web: docker-compose up
+    web: docker compose up
 
 # version: '3.8'
 # services:
